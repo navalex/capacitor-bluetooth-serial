@@ -6,8 +6,11 @@ export class BluetoothSerialWeb
   extends WebPlugin
   implements BluetoothSerialPlugin
 {
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  startScan(): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
+  getDiscoveredDevices(): Promise<{ devices: string[] }> {
+    throw new Error('Method not implemented.');
   }
 }

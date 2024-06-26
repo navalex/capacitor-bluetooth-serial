@@ -1,3 +1,4 @@
 export interface BluetoothSerialPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  startScan(): Promise<void>;
+  getDiscoveredDevices(): Promise<{ devices: string[] }>;
 }

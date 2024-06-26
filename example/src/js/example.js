@@ -1,6 +1,10 @@
 import { BluetoothSerial } from 'capacitor-bluetooth-serial';
 
-window.testEcho = () => {
-    const inputValue = document.getElementById("echoInput").value;
-    BluetoothSerial.echo({ value: inputValue })
+window.blScan = async () => {
+  BluetoothSerial.startScan();
+};
+
+window.blScanned = async () => {
+    const res = await BluetoothSerial.getDiscoveredDevices();
+    document.getElementById('blScanned').innerHTML = JSON.stringify(res);
 }

@@ -1,23 +1,23 @@
 import Foundation
 import Capacitor
 
-/**
- * Please read the Capacitor iOS Plugin Development Guide
- * here: https://capacitorjs.com/docs/plugins/ios
- */
 @objc(BluetoothSerialPlugin)
-public class BluetoothSerialPlugin: CAPPlugin, CAPBridgedPlugin {
-    public let identifier = "BluetoothSerialPlugin"
-    public let jsName = "BluetoothSerial"
-    public let pluginMethods: [CAPPluginMethod] = [
-        CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise)
+public class BluetoothSerialPlugin: CAPPlugin {
+    public let pluginMethods = [
+        CAPPluginMethod(name: "startScan", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getDiscoveredDevices", returnType: CAPPluginReturnPromise)
     ]
-    private let implementation = BluetoothSerial()
+    let bluetoothSerial = BluetoothSerial()
 
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
+    @objc func startScan(_ call: CAPPluginCall) {
+        bluetoothSerial.startScan()
+        call.resolve()
+    }
+
+    @objc func getDiscoveredDevices(_ call: CAPPluginCall) {
+        let devices = bluetoothSerial.getDiscoveredDevices()
         call.resolve([
-            "value": implementation.echo(value)
+            "devices": devices
         ])
     }
 }
